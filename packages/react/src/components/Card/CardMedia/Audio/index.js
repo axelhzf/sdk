@@ -5,7 +5,7 @@ import { PlayButton, ProgressBar } from '../controls'
 import MediaWrap from '../wrap'
 import { getUrlPath, imageProxy } from '../../../../utils'
 
-const Video = styled.video`
+const Audio = styled.audio`
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -25,6 +25,8 @@ const Video = styled.video`
   `};
 `
 
+const Source = styled.source``
+
 class CardVideo extends Component {
   constructor (props) {
     super(props)
@@ -39,14 +41,14 @@ class CardVideo extends Component {
       event.preventDefault()
       this.setState(({ playing }) => {
         const action = !playing ? 'play' : 'pause'
-        this.video[action]()
+        this.audio[action]()
         return { playing: !playing }
       })
     }
   }
 
   updateProgress = () => {
-    const progress = this.video.currentTime / this.video.duration * 100
+    const progress = this.audio.currentTime / this.audio.duration * 100
     this.setState({ progress })
   }
 
@@ -60,30 +62,31 @@ class CardVideo extends Component {
       loop,
       muted,
       playsInline,
-      video,
+      audio,
       ...props
     } = this.props
+
     const { playing, progress } = this.state
+    const src = getUrlPath(audio)
+    const type = `audio/${audio.type}`
 
     return (
       <MediaWrap
-        className='microlink_card__media_video_wrapper'
+        className='microlink_card__media_audio_wrapper'
         cardSize={cardSize}
         loading={loading}
+        image={imageProxy(image)}
         onClick={this.togglePlayback}
         {...props}
       >
-        <Video
-          className='microlink_card__media microlink_card__media_video'
-          src={getUrlPath(video)}
-          poster={imageProxy(image)}
-          muted={muted}
-          autoPlay={autoPlay}
-          loop={loop}
-          playsInline={playsInline}
-          ref={node => (this.video = node)}
+        <Audio
+          className='microlink_card__media microlink_card__media_audio'
+          ref={node => (this.audio = node)}
           {...(controls ? { onTimeUpdate: this.updateProgress } : {})}
-        />
+        >
+          <Source src={src} type={type} />
+          >
+        </Audio>
         <PlayButton cardSize={cardSize} visible={controls && !playing} />
         {controls && (
           <ProgressBar

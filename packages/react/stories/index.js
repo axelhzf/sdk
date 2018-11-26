@@ -6,7 +6,7 @@ import { storiesOf } from '@storybook/react'
 import { checkA11y } from '@storybook/addon-a11y'
 
 import Microlink from '../src'
-import { urls, urlsVideo } from './data'
+import { urls, urlsVideo, urlsAudio } from './data'
 
 const createMicrolink = props => (
   <div
@@ -45,6 +45,9 @@ storiesOf('media', module)
   )
   .addWithJSX('video', () =>
     urlsVideo.map(url => createMicrolink({ url, video: true }))
+  )
+  .addWithJSX('audio', () =>
+    urlsAudio.map(url => createMicrolink({ url, audio: true }))
   )
   .addWithJSX('screenshot', () =>
     urls.map(url =>

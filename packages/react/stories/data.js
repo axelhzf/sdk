@@ -26,3 +26,5 @@ export const urlsVideo = [
   'https://9gag.com/gag/aMZ1WbW',
   'https://www.youtube.com/watch?v=hwMkbaS_M_c'
 ]
+
+export const urlsAudio = ['https://www.youtube.com/watch?v=9P6rdqiybaw']

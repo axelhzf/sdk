@@ -16,6 +16,7 @@ import {
 const Card = ({
   image,
   video,
+  audio,
   url,
   size,
   autoPlay,
@@ -30,6 +31,7 @@ const Card = ({
     <CardMedia
       image={image}
       video={video}
+      audio={audio}
       url={url}
       cardSize={size}
       autoPlay={autoPlay}
@@ -71,7 +73,7 @@ class Microlink extends Component {
     const imagesProps = [].concat(this.props.image)
     const image = someProp(data, imagesProps)
     const imageUrl = getUrlPath(image)
-    const { title, description, url, video } = data
+    const { title, description, url, video, audio } = data
     const { color, background_color: backgroundColor } = image || {}
 
     this.setState({
@@ -82,6 +84,7 @@ class Microlink extends Component {
       url,
       loading: false,
       video,
+      audio,
       image: imageUrl
     })
   }
@@ -95,7 +98,8 @@ class Microlink extends Component {
       loading: loadingState,
       description,
       image,
-      video
+      video,
+      audio
     } = this.state
 
     const {
@@ -131,6 +135,7 @@ class Microlink extends Component {
             url={url}
             image={image}
             video={video}
+            audio={audio}
             autoPlay={autoPlay}
             controls={controls}
             loop={loop}
@@ -161,6 +166,7 @@ Microlink.propTypes = {
   apiKey: PropTypes.string,
   autoPlay: PropTypes.bool,
   video: PropTypes.bool,
+  audio: PropTypes.bool,
   contrast: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   controls: PropTypes.bool,
   image: PropTypes.oneOfType([
